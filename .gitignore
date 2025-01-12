@@ -1,0 +1,7 @@
+/pruebas
+.env
+__pycache__
+.vscode
+*.lock
+node_modules/
+src/config/secrets.py
