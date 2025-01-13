@@ -4,8 +4,8 @@ import os
 
 load_dotenv()
 
-username = os.getenv("USERNAME")
-password = os.getenv("PASSWORD")
+username = os.getenv("bs-username")
+password = os.getenv("bs-password")
 
 
 def post_image_with_text(img_path, text_post="", img_alt="", tags: list = []):
@@ -42,7 +42,6 @@ def post_text(text_post):
 
     client = Client()
     client.login(username, password)
-
     # Construcción del texto enriquecido
     tb = client_utils.TextBuilder()
     tb.text(text_post)
