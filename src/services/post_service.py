@@ -36,6 +36,7 @@ def post_image_with_text(img_path, text_post="", img_alt="", tags: list = []):
 
 def send_post(text_post):
     # Dividir el texto en fragmentos si supera los 300 caracteres
+    # TODO: sacar divide_text() fuera de este archivo
     def divide_text(text, max_length=300):
         words = text.split()
         chunks = []
