@@ -33,8 +33,7 @@ def post_image_with_text(img_path, text_post="", img_alt="", tags: list = []):
     client.send_image(text=tb, image=img_data, image_alt=img_alt)
 
 
-def post_text(text_post):
-    print(text_post, type(text_post))
+def send_post(text_post):
     if len(text_post) > 300:
         raise ValueError(
             f"El texto excede el límite de 300 caracteres. Longitud actual: {len(text_post)}"
