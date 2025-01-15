@@ -6,17 +6,26 @@ import random
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-
-# Publicar en BlueSky (mejorado)
+# Publicar en BlueSky (actualizado)
 def generate_text_post(topic=None, limit_characters=250):
     # Temas disponibles
     topics = [
-        "Ingeniería de datos",
-        "Pandas: métodos y análisis exploratorio",
-        "Numpy en ingeniería de datos",
-        "Limpieza de datos",
-        "Visualización con Matplotlib",
-        "Visualización con Seaborn",
+        "Tendencias en diseño web 2025",
+        "React/Angular/Vue",
+        "CSS moderno",
+        "Performance en el frontend",
+        "JavaScript avanzado",
+        "Buenas prácticas en APIs RESTful",
+        "Microservicios vs Monolitos",
+        "Bases de datos",
+        "Node.js",
+        "Seguridad en el backend",
+        "El mundo de DevOps",
+        "Trabajo remoto para programadores",
+        "Proyectos personales para mejorar tu portafolio",
+        "El impacto de la IA en la programación",
+        "Cómo aprender a programar más rápido",
+        "Consejos para entrevistas técnicas",
     ]
 
     # Seleccionar tema aleatorio si no se proporciona uno
@@ -24,36 +33,83 @@ def generate_text_post(topic=None, limit_characters=250):
         topic = random.choice(topics)
 
     # Generar prompts dinámicos basados en el tema
-    user_prompts = {
-        "Ingeniería de datos": [
-            "Habla sobre el papel de la ingeniería de datos en proyectos modernos.",
-            "Escribe sobre un día típico como ingeniero de datos.",
+    prompts = {
+        "Tendencias en diseño web 2025": [
+            "Habla sobre el uso de colores gradientes modernos en diseño web.",
+            "Explica la importancia de las microinteracciones en la experiencia del usuario.",
+            "Describe cómo implementar un diseño accesible en proyectos web.",
         ],
-        "Pandas: métodos y análisis exploratorio": [
-            "Cómo cargar y explorar un DataFrame con pandas.",
-            "Describe el uso de pandas para el análisis exploratorio de datos.",
+        "React/Angular/Vue": [
+            "Comparación entre frameworks: ¿Cuál elegir para tu próximo proyecto?",
+            "Consejos para usar hooks avanzados en React.",
+            "Patrones de diseño escalables con Vue.",
         ],
-        "Numpy en ingeniería de datos": [
-            "Habla sobre cómo numpy optimiza el manejo de datos en ingeniería.",
-            "Describe un ejemplo de uso de numpy junto con pandas.",
+        "CSS moderno": [
+            "Cómo usar CSS Grid y Flexbox de manera eficiente.",
+            "Optimización de temas dinámicos con variables CSS.",
+            "Crea animaciones avanzadas usando @keyframes.",
         ],
-        "Limpieza de datos": [
-            "Cómo identificar y manejar datos nulos con pandas.",
-            "Comparte consejos sobre limpieza de datos en proyectos reales.",
+        "Performance en el frontend": [
+            "Técnicas para reducir el tiempo de carga en proyectos web.",
+            "Cómo medir el rendimiento con Lighthouse.",
         ],
-        "Visualización con Matplotlib": [
-            "Describe cómo usar Matplotlib para gráficos simples.",
-            "Explica un ejemplo de visualización combinando pandas y Matplotlib.",
+        "JavaScript avanzado": [
+            "Diferencias entre var, let y const explicadas con ejemplos.",
+            "Mejores prácticas para usar Async/Await.",
+            "Ejemplos prácticos de funciones de alto orden.",
         ],
-        "Visualización con Seaborn": [
-            "Habla sobre cómo Seaborn mejora las visualizaciones estadísticas.",
-            "Explica el uso de Seaborn para crear gráficos avanzados.",
+        "Buenas prácticas en APIs RESTful": [
+            "Cómo diseñar endpoints claros y eficientes.",
+            "Implementación de validaciones con Joi o Yup.",
+            "Consejos para agregar paginación y filtros avanzados.",
+        ],
+        "Microservicios vs Monolitos": [
+            "Ventajas y desventajas de arquitecturas monolíticas.",
+            "Herramientas populares para trabajar con microservicios.",
+        ],
+        "Bases de datos": [
+            "Diferencias entre bases de datos relacionales y NoSQL.",
+            "Introducción a bases de datos distribuidas.",
+            "Cómo optimizar consultas SQL.",
+        ],
+        "Node.js": [
+            "Manejo eficiente de solicitudes con Node.js.",
+            "Creación de servidores rápidos usando Express o Fastify.",
+            "Uso de Streams en Node.js para datos en tiempo real.",
+        ],
+        "Seguridad en el backend": [
+            "Implementación de OAuth 2.0 y JWT en tus proyectos.",
+            "Cómo evitar vulnerabilidades comunes como SQL Injection.",
+            "Usa helmet.js para proteger tu API.",
+        ],
+        "El mundo de DevOps": [
+            "¿Qué es DevOps y por qué deberías aprenderlo?",
+            "Cómo configurar pipelines CI/CD con Jenkins o GitHub Actions.",
+        ],
+        "Trabajo remoto para programadores": [
+            "Herramientas para trabajar en equipo a distancia.",
+            "Consejos para mantener la productividad desde casa.",
+        ],
+        "Proyectos personales para mejorar tu portafolio": [
+            "Ideas de proyectos para principiantes e intermedios.",
+            "Cómo documentar un proyecto para destacar en GitHub.",
+        ],
+        "El impacto de la IA en la programación": [
+            "Cómo usar herramientas como ChatGPT para ser más productivo.",
+            "Aspectos éticos de la programación asistida por IA.",
+        ],
+        "Cómo aprender a programar más rápido": [
+            "Métodos efectivos para aprender un nuevo lenguaje.",
+            "Recursos gratuitos y de pago recomendados para aprender programación.",
+        ],
+        "Consejos para entrevistas técnicas": [
+            "Ejercicios comunes de algoritmos y estructuras de datos.",
+            "Cómo prepararte para preguntas sobre diseño de sistemas.",
         ],
     }
 
-    user_content = random.choice(
-        user_prompts.get(topic, ["Habla sobre ingeniería de datos."])
-    )
+    # Seleccionar un prompt basado en el tema
+    prompt_content = random.choice(prompts.get(topic, ["Habla sobre programación y desarrollo."]))
 
     # Generar contenido con OpenAI
     response = client.chat.completions.create(
@@ -61,17 +117,13 @@ def generate_text_post(topic=None, limit_characters=250):
         messages=[
             {
                 "role": "system",
-                "content": f"Eres un generador de posts cortos sobre ingeniería de datos y programación web. El contenido debe ser claro, dinámico. Es extrictamente necesario no puede superar los {limit_characters} caracteres. Debes comportarte como si fuera tu el dieño del perfil de la red social. Por lo que tu respuesta el texto generado para el público objetivo de la red social",
-            },
-            {
-                "role": "user",
-                "content": user_content,
-            },
+                "content": f"Eres un generador de posts cortos sobre programación, diseño web y mejores prácticas en desarrollo. El contenido debe ser claro, interesante y útil. Utiliza un tono personal, habla en primera persona. No generes fragmentos de código de ejemplo, solo nombra los atributos o metodos específicos de los que estés hablando. Mantener la publicacíón dentro de un límite de {limit_characters} caracteres. Tema: {prompt_content}",
+            }
         ],
-        max_tokens=200,
+        max_tokens=300,
     )
 
     return response.choices[0].message.content.strip()
 
-
+# Ejemplo de uso
 print(generate_text_post())

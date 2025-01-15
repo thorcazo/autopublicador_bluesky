@@ -4,8 +4,6 @@ from services.post_service import send_post, post_image_with_text
 from pathlib import Path
 from api.api_client_openai import generate_text_post
 
-# TODO: importar cronjob para automatizar la publicación de posts
-
 # Ruta relativa a la imagen
 image_path = Path(__file__).parent / "img_posts/pandas_post.png"
 
