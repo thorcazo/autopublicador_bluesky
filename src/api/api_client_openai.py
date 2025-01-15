@@ -8,7 +8,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 # Publicar en BlueSky (mejorado)
-def generate_text_post(topic=None):
+def generate_text_post(topic=None, limit_characters=250):
     # Temas disponibles
     topics = [
         "Ingeniería de datos",
@@ -61,7 +61,7 @@ def generate_text_post(topic=None):
         messages=[
             {
                 "role": "system",
-                "content": "Eres un generador de posts cortos sobre ingeniería de datos y programación web. El contenido debe ser claro, dinámico y no superar los 250 caracteres. Debes comportarte como si fuera tu el dieño del perfil de la red social. Por lo que tu respuesta el texto generado para el público objetivo de la red social",
+                "content": f"Eres un generador de posts cortos sobre ingeniería de datos y programación web. El contenido debe ser claro, dinámico. Es extrictamente necesario no puede superar los {limit_characters} caracteres. Debes comportarte como si fuera tu el dieño del perfil de la red social. Por lo que tu respuesta el texto generado para el público objetivo de la red social",
             },
             {
                 "role": "user",

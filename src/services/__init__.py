@@ -1,3 +1,3 @@
-from .post_service import post_text, post_image_with_text
+from .post_service import send_post, post_image_with_text
 
-__all__ = ["post_text", "post_image_with_text"]
+__all__ = ["send_post", "post_image_with_text"]
